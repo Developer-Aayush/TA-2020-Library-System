@@ -1,5 +1,6 @@
 body {
-    background-image: linear-gradient(to right top, #000000, #0d0d0d, #161616, #1d1d1d, #252525);
+    /* background-image: linear-gradient(to right top, #000000, #282828, #4c4c4c, #737373, #9d9d9d); */
+    background-image: linear-gradient(to right top, #000000, #3b3b3b, #777777, #b9b9b9, #ffffff);
     height: 1080px;
     width: auto;
 }
@@ -11,14 +12,34 @@ body {
     padding-top: 200px;
 }
 
-table,
-tr,
-th.heading {
+
+/* .main .lib-table .book-info .heading tr th {
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: xx-large;
     background-color: grey;
     width: 1700px;
+} */
+
+.main .lib-table table.book-info tr.head {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: xx-large;
+    background-color: grey;
+    width: 1700px;
+}
+
+.main .lib-table table.book-info tr.data {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: xx-large;
+    background-color: midnightblue;
+    width: 1700px;
+    text-align: center;
+}
+
+table tr .data {
+    color: pink;
 }
 
 table {

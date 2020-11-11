@@ -1,3 +1,4 @@
+from library.models import allInformation
 from django.shortcuts import render, redirect
 from .forms import UserLoginForm
 from django.contrib.auth import (
@@ -33,8 +34,13 @@ def login_view(request):
 @login_required
 def home(request):
 
+    bookInfo = allInformation.objects.all().order_by('-id')
+
+    context = {'bookInfo': bookInfo,
+               }
+
     # code to be written
-    return render(request, 'index.html')
+    return render(request, 'index.html', context)
 
 
 def logout_view(request):
