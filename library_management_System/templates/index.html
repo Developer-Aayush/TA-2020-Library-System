@@ -23,16 +23,22 @@
                     <th>Book Serial Number</th>
                     <th>Book Name</th>
                     <th>Authors Name</th>
+                    <th>Publication Name</th>
                     <th>Book Type</th>
+                    <th>Quantity</th>
                     <th>Price of Book</th>
+                    <th>Book Added Date and Time</th>
                 </tr>
                 {% for i in bookInfo %}
                 <tr class="data">
                     <td>{{i.Book_serial_Number}}</td>
                     <td>{{i.Book_name}}</td>
                     <td>{{i.Authors_Name}}</td>
+                    <td>{{i.Publication_Name}}</td>
                     <td>{{i.Book_Type}}</td>
+                    <td>{{i.Book_Quantity}}</td>
                     <td>{{i.Book_Price}}</td>
+                    <td>{{i.Book_Added_Date_and_Time}}</td>
                     <td>
                         <a href="{% url 'up' i.id %}" class="btn btn-primary">Update</a>
                     </td>

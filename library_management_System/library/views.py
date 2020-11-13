@@ -1,13 +1,15 @@
 from typing import ContextManager
+
 import django
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import request
-from django.shortcuts import render, redirect
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse, redirect, render
 
 from library.forms import UserLoginForm, allInformationForm
+
+
 from .models import *
 
 
@@ -97,6 +99,7 @@ def delete(request, pk):
     book = allInformation.objects.get(id=pk)
     if request.method == "POST":
         book.delete()
+        return redirect('home')
     context = {'book': book}
     return render(request, 'delete.html', context)
 

@@ -13,8 +13,12 @@ User = get_user_model()
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     def clean(self, *args, **kwargs):
         username = self.cleaned_data.get('username')
@@ -38,7 +42,20 @@ class UserLoginForm(forms.Form):
 #     Author_Name = forms.CharField()
 #     Book_Price = forms.IntegerField()
 
-class allInformationForm(ModelForm):
+
+class allInformationForm(forms.ModelForm):
     class Meta:
         model = allInformation
-        fields = '__all__'
+        fields = ('Book_name', 'Authors_Name',
+                  'Book_Type', 'Book_serial_Number', 'Book_Price', 'Publication_Name', 'Book_Quantity')
+
+        widgets = {
+            'Book_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'Authors_Name': forms.TextInput(attrs={'class': 'form-control'}),
+            'Book_Type': forms.TextInput(attrs={'class': 'form-control'}),
+            'Book_serial_Number': forms.TextInput(attrs={'class': 'form-control'}),
+            'Book_Price': forms.TextInput(attrs={'class': 'form-control'}),
+            'Publication_Name': forms.TextInput(attrs={'class': 'form-control'}),
+            'Book_Quantity': forms.TextInput(attrs={'class': 'form-control'}),
+
+        }
