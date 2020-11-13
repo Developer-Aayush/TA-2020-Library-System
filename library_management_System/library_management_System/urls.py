@@ -26,4 +26,5 @@ urlpatterns = [
     path('add_book', views.addbooks, name="addBook"),
     path('update/<str:pk>/', views.update, name="up"),
     path('delete/<str:pk>/', views.delete, name="delete"),
+    path('logout', views.logout_view, name="logoutView")
 ]

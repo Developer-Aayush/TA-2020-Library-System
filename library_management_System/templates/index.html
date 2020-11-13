@@ -10,8 +10,14 @@
 </head>
 
 <body>
+    <a href="{% url 'logoutView' %}" style="float: right; padding-top: 10px">
+        <button class="btn btn-warning">Logout</button></a>
+
+    <h1 style="padding-left: 50px; padding-top: 50px">
+        Islington College Library Management System
+    </h1>
     <div class="main">
-        <div class="lib-table">
+        <div class="lib-table" style="margin-top: 100px; margin-left: 50px; margin-right: 50px">
             <table class="table table-striped table-dark">
                 <tr class="head">
                     <th>Book Serial Number</th>
@@ -28,16 +34,18 @@
                     <td>{{i.Book_Type}}</td>
                     <td>{{i.Book_Price}}</td>
                     <td>
-                        <a href="{% url 'up' %}" class="btn btn-primary">Delete</a>
+                        <a href="{% url 'up' i.id %}" class="btn btn-primary">Update</a>
                     </td>
                     <td>
-                        <a href="{% url 'delete' %}" class="btn btn-primary">Delete</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        <a href="{% url 'addBook' %}" ref=""><button class="btn btn-primary">Add book</button></a
+                        <a href="{% url 'delete' i.id %}" class="btn btn-danger">Delete</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <a href="{% url 'addBook' %}" style="margin-left: 50px"
+        ><button class="btn btn-success">Add book</button></a
       >
     </div>
   </body>
