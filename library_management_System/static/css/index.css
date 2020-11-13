@@ -5,12 +5,13 @@ body {
     width: auto;
 }
 
-.lib-table {
+
+/* .lib-table {
     height: auto;
     width: auto;
     padding-left: 110px;
     padding-top: 200px;
-}
+} */
 
 
 /* .main .lib-table .book-info .heading tr th {
@@ -21,7 +22,8 @@ body {
     width: 1700px;
 } */
 
-.main .lib-table table.book-info tr.head {
+
+/* .main .lib-table table.book-info tr.head {
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: xx-large;
@@ -44,4 +46,4 @@ table tr .data {
 
 table {
     overflow-x: scroll;
-}
+} */

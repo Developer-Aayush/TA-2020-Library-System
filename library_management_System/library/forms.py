@@ -1,9 +1,12 @@
 from django import forms
-from django.contrib.auth import (
-    authenticate,
-    get_user_model
+from django.contrib.auth import authenticate, get_user_model
+from django.forms import fields
 
-)
+from library.models import allInformation
+
+from .models import allInformation
+
+from django.forms import ModelForm
 
 User = get_user_model()
 
@@ -25,3 +28,16 @@ class UserLoginForm(forms.Form):
             if not user.is_active:
                 raise forms.ValidationError('This user is not active')
         return super(UserLoginForm, self).clean(*args, **kwargs)
+
+
+# class addBooks(forms.Form):
+#     Serial_Number = forms.CharField()
+#     Book_Name = forms.CharField()
+#     Book_Type = forms.CharField()
+#     Author_Name = forms.CharField()
+#     Book_Price = forms.IntegerField()
+
+class allInformationForm(ModelForm):
+    class Meta:
+        model = allInformation
+        fields = '__all__'

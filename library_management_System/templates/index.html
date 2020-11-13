@@ -5,13 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="{% static '../../../static/css/index.css' %}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <title>Document</title>
 </head>
 
 <body>
     <div class="main">
         <div class="lib-table">
-            <table class="book-info">
+            <table class="table table-striped table-dark">
                 <tr class="head">
                     <th>Book Serial Number</th>
                     <th>Book Name</th>
@@ -26,13 +27,18 @@
                     <td>{{i.Authors_Name}}</td>
                     <td>{{i.Book_Type}}</td>
                     <td>{{i.Book_Price}}</td>
-                    <td><button>Update</button></td>
-                    <td><button>Delete</button></td>
+                    <td>
+                        <a href="{% url 'up' %}" class="btn btn-primary">Delete</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'delete' %}" class="btn btn-primary">Delete</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
         </div>
+        <a href="{% url 'addBook' %}" ref=""><button class="btn btn-primary">Add book</button></a
+      >
     </div>
-</body>
-
+  </body>
 </html>
