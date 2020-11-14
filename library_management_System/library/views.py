@@ -46,27 +46,6 @@ def home(request):
 
 @login_required
 def addbooks(request):
-
-    # form = addBooks()
-    # if request.method == 'POST':
-    #     form = addBooks(request.POST)
-    #     Book_serial_Number = request.POST["Serial_Number"]
-    #     Book_Name = request.POST["Book_Name"]
-    #     Book_Type = request.POST["Book_Type"]
-    #     Authors_Name = request.POST["Author_Name"]
-    #     Book_Price = request.POST["Book_Price"]
-
-    #     bookInfo = allInformation(
-    #         Serial_Number=Book_serial_Number,
-    #         Book_Name=Book_Name,
-    #         Book_Type=Book_Type,
-    #         Author_Name=Authors_Name,
-    #         Book_Price=Book_Price
-    #     )
-    #     bookInfo.save()
-    #     # message.success(request, 'Book Added Successfully')
-    #     redirect('home')
-
     form = allInformationForm()
     if request.method == 'POST':
         form = allInformationForm(request.POST)
@@ -104,6 +83,7 @@ def delete(request, pk):
     return render(request, 'delete.html', context)
 
 
+@login_required
 def logout_view(request):
 
     logout(request)
