@@ -5,6 +5,8 @@ Project Completion Date : Nov 14 2020 -
 Backend framework used : Django -  
 Database used : MySQL - 
 
+
+Click here to check the website : https://royalaayush.github.io/TA-2020-Library-System/.
   
 
 
