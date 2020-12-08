@@ -6,17 +6,16 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import request
 from django.shortcuts import HttpResponse, redirect, render
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from library.forms import UserLoginForm, allInformationForm
 
-
 from .models import *
-from django.shortcuts import render
-# from django.http import JsonResponse
-
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from .serializers import BookSerializers
+
+# from django.http import JsonResponse
 
 
 def login_view(request):
@@ -97,7 +96,8 @@ def logout_view(request):
 @api_view(['GET'])
 def apiOverview(request):
     api_urls = {
-        'Task': 'Their URLS',
+        'Task':                      'Their URLS',
+
         'For Looking all the books': 'localhost:8000/bookList',
         'For Looking at the specific book': 'localhost:8000/bookDetail/<book-id>',
         'For Adding the New Book': 'localhost:8000/bookCreate',
@@ -109,6 +109,7 @@ def apiOverview(request):
 
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated,))
 def bookList(request):
     tasks = allInformation.objects.all().order_by('-id')
     serializer = BookSerializers(tasks, many=True)
@@ -116,6 +117,7 @@ def bookList(request):
 
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated,))
 def bookDetail(request, pk):
     tasks = allInformation.objects.get(id=pk)
     serializer = BookSerializers(tasks, many=False)
@@ -123,6 +125,7 @@ def bookDetail(request, pk):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def bookCreate(request):
     serializer = BookSerializers(data=request.data)
 
@@ -133,6 +136,7 @@ def bookCreate(request):
 
 
 @api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 def bookUpdate(request, pk):
     task = allInformation.objects.get(id=pk)
     serializer = BookSerializers(instance=task, data=request.data)
@@ -144,6 +148,7 @@ def bookUpdate(request, pk):
 
 
 @api_view(['DELETE'])
+@permission_classes((IsAuthenticated))
 def bookDelete(request, pk):
     task = allInformation.objects.get(id=pk)
     task.delete()
