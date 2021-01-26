@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>csv</title>
+</head>
+
+<body>
+    <h1>
+        Hey there make sure your your file is a csv file and data inside the csv file is in following order
+    </h1>
+    <p>name, address, gender, phone, email, profile</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Upload a file</label>
+        <input type="files" name="files" />
+        <button type="submit">Upload</button>
+    </form>
+</body>
+
+</html>

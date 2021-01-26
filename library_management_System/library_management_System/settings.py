@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'library_management_System',
     'library',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [

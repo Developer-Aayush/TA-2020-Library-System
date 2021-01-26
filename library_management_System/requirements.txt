@@ -1,0 +1,8 @@
+asgiref==3.3.1
+Django==3.1.4
+django-expiring-token==1.0.2
+djangorestframework==3.12.2
+Pillow==8.0.1
+psycopg2==2.8.6
+pytz==2020.4
+sqlparse==0.4.1

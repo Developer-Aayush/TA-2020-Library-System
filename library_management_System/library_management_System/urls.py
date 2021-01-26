@@ -20,4 +20,5 @@ urlpatterns = [
 
     path('bookUpdate/<str:pk>', views.bookUpdate, name="bookupdate"),
     path('bookDelete/<str:pk>/', views.bookDelete, name="bookdelete"),
+    path('upload_csv', views.csvImport, name="csv"),
 ]
