@@ -1,23 +1,54 @@
+import csv
+import io
 from typing import ContextManager
-
+import pytz
+import datetime
 import django
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import request
 from django.shortcuts import HttpResponse, redirect, render
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework import authentication
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.decorators import (
+    api_view,
+    authentication_classes,
+    permission_classes,
+)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-import csv
-import io
 
 from library.forms import UserLoginForm, allInformationForm
 
+from .authentication import ExpiringTokenAuthentication
 from .models import *
 from .serializers import BookSerializers
 
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+
+
 # from django.http import JsonResponse
+
+
+class CustomAuthTokenLogin(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(
+            data=request.data, context={"request": request}
+        )
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data["user"]
+
+        utc_now = datetime.datetime.utcnow()
+        utc_now = utc_now.replace(tzinfo=pytz.utc)
+
+        result = Token.objects.filter(
+            user=user, created__lt=utc_now - datetime.timedelta(seconds=15)
+        ).delete()
+
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({"token": token.key, "user_id": user.pk, "email": user.email})
 
 
 def login_view(request):
@@ -122,6 +153,8 @@ def logout_view(request):
 
 
 @api_view(["GET"])
+@authentication_classes([ExpiringTokenAuthentication])
+@permission_classes([IsAuthenticated])
 def apiOverview(request):
     api_urls = {
         "Task": "Their URLS",
@@ -136,7 +169,8 @@ def apiOverview(request):
 
 
 @api_view(["GET"])
-@permission_classes((IsAuthenticated,))
+@authentication_classes((ExpiringTokenAuthentication))
+@permission_classes((IsAuthenticated))
 def bookList(request):
     tasks = allInformation.objects.all().order_by("-id")
     serializer = BookSerializers(tasks, many=True)
@@ -144,7 +178,8 @@ def bookList(request):
 
 
 @api_view(["GET"])
-@permission_classes((IsAuthenticated,))
+@authentication_classes((ExpiringTokenAuthentication))
+@permission_classes((IsAuthenticated))
 def bookDetail(request, pk):
     tasks = allInformation.objects.get(id=pk)
     serializer = BookSerializers(tasks, many=False)
@@ -152,7 +187,8 @@ def bookDetail(request, pk):
 
 
 @api_view(["POST"])
-@permission_classes((IsAuthenticated,))
+@authentication_classes((ExpiringTokenAuthentication))
+@permission_classes((IsAuthenticated))
 def bookCreate(request):
     serializer = BookSerializers(data=request.data)
 
@@ -163,7 +199,8 @@ def bookCreate(request):
 
 
 @api_view(["POST"])
-@permission_classes((IsAuthenticated,))
+@authentication_classes((ExpiringTokenAuthentication))
+@permission_classes((IsAuthenticated))
 def bookUpdate(request, pk):
     task = allInformation.objects.get(id=pk)
     serializer = BookSerializers(instance=task, data=request.data)
@@ -175,6 +212,7 @@ def bookUpdate(request, pk):
 
 
 @api_view(["DELETE"])
+@authentication_classes((ExpiringTokenAuthentication))
 @permission_classes((IsAuthenticated))
 def bookDelete(request, pk):
     task = allInformation.objects.get(id=pk)
